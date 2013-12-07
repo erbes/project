@@ -1,0 +1,144 @@
+package edu.uwm.cs361.fantastic_five.training_tracker.app.entities;
+
+import java.util.List;
+import java.util.Set;
+
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+import com.google.appengine.datanucleus.annotations.Unowned;
+
+import com.google.appengine.api.datastore.Key;
+
+@PersistenceCapable
+public class Program {
+
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+
+	@Persistent
+	private String name;
+
+	@Persistent
+	private String instructor;
+
+	@Persistent
+	private double price;
+	
+	
+	@Persistent
+	private double discount;
+	
+	@Persistent
+	private boolean chooseTimes;
+
+	@Unowned
+	@Persistent
+	private Set<Student> students;
+	
+	@Persistent
+	private List<time> times;
+	
+	@Persistent
+	private String startDate; 
+
+	@Persistent
+	private String endDate;
+	
+
+	public Program(String name, String instructor, double price, String startDate,
+			String endDate) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+		this.instructor = instructor;
+		this.price = price;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
+	public Program(String name, String instructor, double price, List<time> times, String startDate, String endDate)
+	{
+		this.name = name;
+		this.instructor = instructor;
+		this.price = price;
+		this.times= times;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		
+	}
+
+	
+
+	public Key getKey()
+	{
+		return key;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public String getInstructor()
+	{
+		return instructor;
+	}
+	public void setInstructor(String instructor)
+	{
+		this.instructor = instructor;
+	}
+
+	public double getPrice(){
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public double getRevenue(){
+		return students.size()*price;
+	}
+
+	public void addStudent(Student student){
+		students.add(student);
+	}
+	public Set<Student> listStudents(){
+		return students;
+	}
+	
+	public List<time> getTimes(){
+
+		return times;
+	}
+	
+	public String getStartDate(){
+		return startDate;
+	}
+	
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+	
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	
+	private class dates{
+		
+	}
+
+
+
+	
+}
