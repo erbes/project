@@ -16,12 +16,12 @@ public class AppEngineProgramTest extends AppEngineTest {
 
 	@Before
 	public void setUpTests() {
-		this.program = new Program("Example Program", "Andrew Meyer", 22.50);
+		this.program = new Program("Example Program", "Andrew Meyer", 22.50, "12-30-2013", "01-30-2014");
 	}
 
 	@Test
 	public void testKey() {
-		Program program2 = new Program("Example Program", "Andrew Meyer", 22.50);
+		Program program2 = new Program("Example Program", "Andrew Meyer", 22.50, "12-30-2013", "01-30-2014");
 
 		PersistenceManager pm = getPersistenceManager();
 

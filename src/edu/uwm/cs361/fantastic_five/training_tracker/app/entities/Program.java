@@ -46,7 +46,7 @@ public class Program {
 	private List<time> times;
 	
 	
-	public Program(String name, String instructor, double price)
+	public Program(String name, String instructor, double price, String string, String string2)
 	{
 		this.name = name;
 		this.instructor = instructor;
