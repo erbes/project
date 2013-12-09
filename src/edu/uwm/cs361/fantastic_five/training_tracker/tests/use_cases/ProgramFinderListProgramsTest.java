@@ -30,18 +30,20 @@ public class ProgramFinderListProgramsTest extends AppEngineTest {
 		resp = programFinder.listPrograms(req);
 	}
 
-	private void createProgram(String name, String instructor, String price) {
+	private void createProgram(String name, String instructor, String price, String startDate, String endDate) {
 		CreateProgramRequest req = new CreateProgramRequest();
 		req.name = name;
 		req.instructor = instructor;
 		req.price = price;
-
+		req.startDate = startDate;
+		req.endDate = endDate;
 		new ProgramCreator().createProgram(req);
 	}
-
+	
 	private void createPrograms() {
-		createProgram("Example Program", "Andrew Meyer", "2.60");
-		createProgram("Example Program 2", "Charlie Liberski", "7.20");
+		createProgram("Example Program", "Andrew Meyer", "2.60", "12-31-2013", "01-02-2014");
+		createProgram("Example Program 2", "Charlie Liberski", "7.20", "12-30-2013", "01-30-2014");
+	
 	}
 
 	@Test
@@ -77,9 +79,13 @@ public class ProgramFinderListProgramsTest extends AppEngineTest {
 			if (program.getName().equals("Example Program")) {
 				assertEquals("Andrew Meyer", program.getInstructor());
 				assertEquals(2.60, program.getPrice(), 0.001);
+				assertEquals("12-31-2013", program.getStartDate());
+				assertEquals("01-02-2014", program.getEndDate());
 			} else { // program.getName().equals("Example Program 2")
 				assertEquals("Charlie Liberski", program.getInstructor());
 				assertEquals(7.20, program.getPrice(), 0.001);
+				assertEquals("12-30-2013", program.getStartDate());
+				assertEquals("01-30-2014", program.getEndDate());
 			}
 		}
 	}

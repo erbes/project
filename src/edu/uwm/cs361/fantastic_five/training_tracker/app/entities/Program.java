@@ -118,6 +118,16 @@ public class Program {
 	private class dates{
 		
 	}
+
+	public Object getStartDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getEndDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
 
