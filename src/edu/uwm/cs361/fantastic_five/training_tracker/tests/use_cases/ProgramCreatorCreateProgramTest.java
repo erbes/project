@@ -34,6 +34,9 @@ public class ProgramCreatorCreateProgramTest extends AppEngineTest {
 		req.instructor = "Andrew Meyer";
 		req.name = "Example Program";
 		req.price = "2.50";
+		req.startDate = "12-31-2013";
+		req.endDate = "01-01-2014";
+		
 	}
 
 	@Test
@@ -46,10 +49,9 @@ public class ProgramCreatorCreateProgramTest extends AppEngineTest {
 		assertTrue(resp.errors.isEmpty());
 	}
 
-	@SuppressWarnings("unchecked")
 	private List<Program> getAllPrograms() {
 		PersistenceManager pm = getPersistenceManager();
-		return (List<Program>) pm.newQuery(Program.class).execute();
+		return ((List<Program>) pm.newQuery(Program.class).execute());
 	}
 
 	private Program getFirstProgram() {
@@ -154,4 +156,77 @@ public class ProgramCreatorCreateProgramTest extends AppEngineTest {
 		assertFalse(resp.errors.get("price").isEmpty());
 	}
 
-}
+// Liz tests start here
+	
+	@Test
+	public void testProgramCreatedCorrectStartDate() {
+		generateValidRequest();
+		req.startDate = "12-31-2013";
+		doRequest();
+
+		assertEquals("12-31-2013", getFirstProgram().getStartDate());
+	}
+	
+	@Test
+	public void testProgramCreatedCorrectEndDate() {
+		generateValidRequest();
+		req.endDate = "01-01-2014";
+		doRequest();
+
+		assertEquals("01-01-2014", getFirstProgram().getEndDate());
+	}
+
+	@Test
+	public void testCreateProgramWithBlankStartDate() {
+		generateValidRequest();
+		req.startDate = "";
+
+		doRequest();
+
+		assertFalse(resp.success);
+		assertFalse(resp.errors.isEmpty());
+		assertNotNull(resp.errors.get("startDate"));
+		assertFalse(resp.errors.get("startDate").isEmpty());
+	}
+	
+
+	@Test
+	public void testCreateProgramWithInvalidStartDate() {
+		generateValidRequest();
+		req.startDate = "n-0-3";
+
+		doRequest();
+
+		assertFalse(resp.success);
+		assertFalse(resp.errors.isEmpty());
+		assertNotNull(resp.errors.get("startDate"));
+		assertFalse(resp.errors.get("startDate").isEmpty());
+	}
+	@Test
+	public void testCreateProgramWithBlankEndDate() {
+		generateValidRequest();
+		req.endDate = "";
+
+		doRequest();
+
+		assertFalse(resp.success);
+		assertFalse(resp.errors.isEmpty());
+		assertNotNull(resp.errors.get("endDate"));
+		assertFalse(resp.errors.get("endDate").isEmpty());
+	}
+	
+ 
+	@Test
+	public void testCreateProgramWithInvalidEndDate() {
+		generateValidRequest();
+		req.endDate = "oo-oo-0000";
+
+		doRequest();
+
+		assertFalse(resp.success);
+		assertFalse(resp.errors.isEmpty());
+		assertNotNull(resp.errors.get("endDate"));
+		assertFalse(resp.errors.get("endDate").isEmpty());
+	}
+
+}//end
