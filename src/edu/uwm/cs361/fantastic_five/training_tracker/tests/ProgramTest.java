@@ -12,7 +12,7 @@ public class ProgramTest {
 
 	@Before
 	public void setUpTests() {
-		this.program = new Program("Example Program", "Andrew Meyer", 22.50);
+		this.program = new Program("Example Program", "Andrew Meyer", 22.50, "12-30-2013", "01-20-2014");
 	}
 
 	@Test
