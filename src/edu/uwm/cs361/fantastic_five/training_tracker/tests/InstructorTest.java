@@ -55,7 +55,7 @@ public class InstructorTest {
 
 	@Test
 	public void testSetPassword() {
-		instructor.setPassword("happy");
-		assertEquals("happy", instructor.getPassword());
+		instructor.setPassword("h@ppyTim3s");
+		assertEquals("h@ppyTim3s", instructor.getPassword());
 	}
 }
