@@ -1,4 +1,5 @@
 package edu.uwm.cs361.fantastic_five.training_tracker.tests.use_cases;
+/* I have ISSUE WITH "hasItem METHOD CALL still*/
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -23,6 +24,7 @@ import edu.uwm.cs361.fantastic_five.training_tracker.app.use_cases.requests.View
 import edu.uwm.cs361.fantastic_five.training_tracker.app.use_cases.responses.ViewProgramResponse;
 import edu.uwm.cs361.fantastic_five.training_tracker.tests.AppEngineTest;
 
+@SuppressWarnings("unused")
 public class ProgramViewerTest extends AppEngineTest {
 	ProgramViewer programViewer;
 	ViewProgramRequest req;
@@ -38,12 +40,13 @@ public class ProgramViewerTest extends AppEngineTest {
 		resp = programViewer.viewProgram(req);
 	}
 
-	private void createProgram(String name, String instructor, String price) {
+	private void createProgram(String name, String instructor, String price, String startDate, String endDate) {
 		CreateProgramRequest req = new CreateProgramRequest();
 		req.name = name;
 		req.instructor = instructor;
 		req.price = price;
-
+		req.startDate = startDate;
+		req.endDate = endDate;
 		new ProgramCreator().createProgram(req);
 	}
 
@@ -88,20 +91,20 @@ public class ProgramViewerTest extends AppEngineTest {
 		PersistenceManager pm = getPersistenceManager();
 		return (List<Student>) pm.newQuery(Student.class).execute();
 	}
-//	private Student getFirstStudent() {
-//		List<Student> students = getAllStudents();
-//		return students.iterator().next();
-//	}
+
+	private Student getFirstStudent() {
+		List<Student> students = getAllStudents();
+		return students.iterator().next();
+	}
 
 	private void createProgramWithoutStudents() {
-		createProgram("Example Program", "Andrew Meyer", "2.60");
+		createProgram("Example Program", "Andrew Meyer", "2.60", "12-31-2013","01-01-2014");
 	}
 
 	private void createProgramWithStudents() {
 		createProgramWithoutStudents();
-		createStudent("Andrew", "Meyer", "andrew@example.com");
-		createStudent("Charlie", "Liberski", "charlie@example.com");
-
+		createProgram("Example Program", "Andrew Meyer", "2.60", "12-31-2013", "01-02-2014");
+		createProgram("Example Program 2", "Charlie Liberski", "7.20", "12-30-2013", "01-30-2014");
 		enrollAllStudents(getFirstProgram());
 	}
 
