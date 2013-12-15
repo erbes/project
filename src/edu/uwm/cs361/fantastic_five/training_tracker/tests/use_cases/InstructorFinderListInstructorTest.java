@@ -91,7 +91,7 @@ public class InstructorFinderListInstructorTest extends AppEngineTest {
 	}
 
 	@Test
-	public void testListStudentsWithNoStudents() {
+	public void testListInstructorsWithNoInstructors() {
 		doRequest();
 
 		assertTrue(resp.instructors.isEmpty());
